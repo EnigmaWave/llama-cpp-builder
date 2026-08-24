@@ -6,8 +6,8 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '15 * * * *'
-    - cron: '45 * * * *'
+    - cron: "15 * * * *"
+    - cron: "45 * * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'schedule' && github.run_id || '' }}
@@ -94,13 +94,13 @@ jobs:
           repository: ggml-org/llama.cpp
           path: llama.cpp
           ref: ${{ needs.check-version.outputs.llama-tag }}
-          fetch-tags: 'true'
+          fetch-tags: "true"
       - name: Install dependencies
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-            apt update
-            apt install -y build-essential ninja-build libgomp1 git libssl-dev libcurl4-openssl-dev zip wget
+          apt update
+          apt install -y build-essential ninja-build libgomp1 git libssl-dev libcurl4-openssl-dev zip wget
       - name: Setup cmake 4.2.0
         run: |
           mkdir -p ./cmake-4.2.0
@@ -138,7 +138,7 @@ jobs:
           archive: false
 
   release:
-    needs: 
+    needs:
       - check-version
       - build-cuda-13-amd64
     runs-on: ubuntu-latest
