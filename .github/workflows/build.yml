@@ -102,13 +102,9 @@ jobs:
           apt update
           apt install -y build-essential ninja-build libgomp1 git libssl-dev libcurl4-openssl-dev zip wget
       - name: Setup cmake 4.2.0
-        run: |
-          mkdir -p ./cmake-4.2.0
-          cd ./cmake-4.2.0
-          wget -O cmake.sh https://github.com/Kitware/CMake/releases/download/v4.2.0/cmake-4.2.0-linux-x86_64.sh
-          sh cmake.sh --prefix=/usr/local --skip-license
-          cd ..
-          rm -rf cmake-4.2.0
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: "4.2.0"
       - name: Build amd64
         working-directory: llama.cpp
         run: |
